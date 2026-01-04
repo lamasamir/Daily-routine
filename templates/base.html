@@ -1,0 +1,32 @@
+<!-- tasks/templates/tasks/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Routine - {% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tasks"></i> Daily Routine Tracker</h1>
+            <nav>
+                <a href="{% url 'task_list' %}" class="nav-link">Tasks</a>
+                <a href="{% url 'monthly_stats' %}" class="nav-link">Monthly Stats</a>
+                <a href="{% url 'task_create' %}" class="nav-link add-btn">Add Task</a>
+            </nav>
+        </header>
+        
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        
+        <footer>
+            <p>Daily Routine Tracker &copy; {% now "Y" %}</p>
+        </footer>
+    </div>
+</body>
+</html>

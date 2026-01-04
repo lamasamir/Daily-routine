@@ -1,0 +1,102 @@
+<!-- tasks/templates/tasks/task_list.html -->
+{% extends 'base.html' %}
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+<div class="date-header">
+    <h2>Today: {{ today|date:"F d, Y" }}</h2>
+</div>
+
+<div class="task-section">
+    <h3><i class="fas fa-sun"></i> Today's Tasks</h3>
+    {% if tasks_today %}
+        {% for task in tasks_today %}
+            <div class="task-card {% if task.is_done %}completed{% endif %}">
+                <div class="task-content">
+                    <span class="task-title">{{ task.title }}</span>
+                    <span class="task-date">{{ task.date|date:"M d" }}</span>
+                </div>
+                <div class="task-actions">
+                    <a href="{% url 'task_toggle' task.pk %}" class="btn btn-toggle">
+                        {% if task.is_done %}
+                            <i class="fas fa-undo"></i> Undo
+                        {% else %}
+                            <i class="fas fa-check"></i> Complete
+                        {% endif %}
+                    </a>
+                    <a href="{% url 'task_edit' task.pk %}" class="btn btn-edit">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a href="{% url 'task_delete' task.pk %}" class="btn btn-delete">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-message">No tasks for today. Add some!</p>
+    {% endif %}
+</div>
+
+<div class="task-section">
+    <h3><i class="fas fa-cloud-sun"></i> Tomorrow's Tasks</h3>
+    {% if tasks_tomorrow %}
+        {% for task in tasks_tomorrow %}
+            <div class="task-card {% if task.is_done %}completed{% endif %}">
+                <div class="task-content">
+                    <span class="task-title">{{ task.title }}</span>
+                    <span class="task-date">{{ task.date|date:"M d" }}</span>
+                </div>
+                <div class="task-actions">
+                    <a href="{% url 'task_toggle' task.pk %}" class="btn btn-toggle">
+                        {% if task.is_done %}
+                            <i class="fas fa-undo"></i> Undo
+                        {% else %}
+                            <i class="fas fa-check"></i> Complete
+                        {% endif %}
+                    </a>
+                    <a href="{% url 'task_edit' task.pk %}" class="btn btn-edit">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a href="{% url 'task_delete' task.pk %}" class="btn btn-delete">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-message">No tasks for tomorrow.</p>
+    {% endif %}
+</div>
+
+<div class="task-section">
+    <h3><i class="fas fa-calendar-alt"></i> Upcoming Tasks</h3>
+    {% if tasks_upcoming %}
+        {% for task in tasks_upcoming %}
+            <div class="task-card {% if task.is_done %}completed{% endif %}">
+                <div class="task-content">
+                    <span class="task-title">{{ task.title }}</span>
+                    <span class="task-date">{{ task.date|date:"M d, Y" }}</span>
+                </div>
+                <div class="task-actions">
+                    <a href="{% url 'task_toggle' task.pk %}" class="btn btn-toggle">
+                        {% if task.is_done %}
+                            <i class="fas fa-undo"></i> Undo
+                        {% else %}
+                            <i class="fas fa-check"></i> Complete
+                        {% endif %}
+                    </a>
+                    <a href="{% url 'task_edit' task.pk %}" class="btn btn-edit">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a href="{% url 'task_delete' task.pk %}" class="btn btn-delete">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-message">No upcoming tasks.</p>
+    {% endif %}
+</div>
+{% endblock %}

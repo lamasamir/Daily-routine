@@ -1,0 +1,55 @@
+<!-- tasks/templates/tasks/monthly_stats.html -->
+{% extends 'base.html' %}
+{% block title %}Monthly Statistics{% endblock %}
+
+{% block content %}
+<div class="stats-container">
+    <h2><i class="fas fa-chart-bar"></i> Monthly Statistics - {{ current_month }}</h2>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon total-tasks">
+                <i class="fas fa-tasks"></i>
+            </div>
+            <h3>Total Tasks</h3>
+            <p class="stat-number">{{ total_tasks }}</p>
+            <p class="stat-desc">Tasks created this month</p>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon completed-tasks">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Completed Tasks</h3>
+            <p class="stat-number">{{ completed_tasks }}</p>
+            <p class="stat-desc">Tasks marked as done</p>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon completion-rate">
+                <i class="fas fa-percentage"></i>
+            </div>
+            <h3>Completion Rate</h3>
+            <p class="stat-number">{{ percentage_completed }}%</p>
+            <p class="stat-desc">Of total tasks completed</p>
+        </div>
+    </div>
+    
+    <div class="progress-container">
+        <h3>Progress Overview</h3>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: {{ percentage_completed }}%"></div>
+        </div>
+        <p class="progress-text">{{ completed_tasks }} out of {{ total_tasks }} tasks completed</p>
+    </div>
+    
+    <div class="stats-actions">
+        <a href="{% url 'task_list' %}" class="btn btn-back">
+            <i class="fas fa-arrow-left"></i> Back to Tasks
+        </a>
+        <a href="{% url 'task_create' %}" class="btn btn-add">
+            <i class="fas fa-plus"></i> Add New Task
+        </a>
+    </div>
+</div>
+{% endblock %}
