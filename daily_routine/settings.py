@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-)zgo9l+7%c9fm8h0n2-+xglpoo)tzgu8gik@amzf98_j10^n%&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://daily-routine-ktf2.onrender.com']
+ALLOWED_HOSTS = [
+    "daily-routine-ktf2.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+
 
 
 # Application definition
@@ -116,7 +121,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
