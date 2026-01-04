@@ -14,19 +14,57 @@
         <header>
             <h1><i class="fas fa-tasks"></i> Daily Routine Tracker</h1>
             <nav>
-                <a href="{% url 'task_list' %}" class="nav-link">Tasks</a>
-                <a href="{% url 'monthly_stats' %}" class="nav-link">Monthly Stats</a>
-                <a href="{% url 'task_create' %}" class="nav-link add-btn">Add Task</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'task_list' %}" class="nav-link">Tasks</a>
+                    <a href="{% url 'monthly_stats' %}" class="nav-link">Monthly Stats</a>
+                    <a href="{% url 'profile' %}" class="nav-link">
+                        <i class="fas fa-user"></i> {{ user.username }}
+                    </a>
+                    <a href="{% url 'task_create' %}" class="nav-link add-btn">Add Task</a>
+                    <a href="{% url 'logout' %}" class="nav-link logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="nav-link">Login</a>
+                    <a href="{% url 'register' %}" class="nav-link add-btn">Register</a>
+                {% endif %}
             </nav>
         </header>
+        
+        {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <button class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
         
         <main>
             {% block content %}{% endblock %}
         </main>
         
         <footer>
-            <p>Daily Routine Tracker &copy; {% now "Y" %}</p>
+            <p>Daily Routine Tracker &copy; {% now "Y" %} | 
+                {% if user.is_authenticated %}
+                    Welcome, {{ user.username }}!
+                {% else %}
+                    Please login to use the app
+                {% endif %}
+            </p>
         </footer>
     </div>
+    
+    <script>
+        // Auto-hide messages after 5 seconds
+        setTimeout(function() {
+            var messages = document.querySelectorAll('.alert');
+            messages.forEach(function(message) {
+                message.style.display = 'none';
+            });
+        }, 5000);
+    </script>
 </body>
 </html>

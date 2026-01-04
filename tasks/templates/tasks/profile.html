@@ -1,0 +1,54 @@
+<!-- tasks/templates/tasks/profile.html -->
+{% extends 'tasks/base.html' %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="avatar">
+            <i class="fas fa-user-circle"></i>
+        </div>
+        <h2>{{ user.username }}'s Profile</h2>
+        <p class="email">{{ user.email }}</p>
+        <p class="member-since">Member since: {{ user.date_joined|date:"F d, Y" }}</p>
+    </div>
+    
+    <div class="profile-stats">
+        <div class="stat-item">
+            <div class="stat-icon">
+                <i class="fas fa-tasks"></i>
+            </div>
+            <h3>Total Tasks</h3>
+            <p class="stat-number">{{ tasks_count }}</p>
+        </div>
+        
+        <div class="stat-item">
+            <div class="stat-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Completed Tasks</h3>
+            <p class="stat-number">{{ completed_tasks }}</p>
+        </div>
+        
+        <div class="stat-item">
+            <div class="stat-icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h3>Active Days</h3>
+            <p class="stat-number">{{ user.date_joined|timesince }}</p>
+        </div>
+    </div>
+    
+    <div class="profile-actions">
+        <a href="{% url 'task_list' %}" class="btn btn-primary">
+            <i class="fas fa-tasks"></i> View Tasks
+        </a>
+        <a href="{% url 'monthly_stats' %}" class="btn btn-secondary">
+            <i class="fas fa-chart-bar"></i> View Statistics
+        </a>
+        <a href="{% url 'logout' %}" class="btn btn-logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+</div>
+{% endblock %}
